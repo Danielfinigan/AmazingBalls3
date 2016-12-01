@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame () {
 		SetGameState (GameState.inGame);
+		Player1Controller.Instance.StartGame ();
 	}
 
 	public void LvlComplete () {
