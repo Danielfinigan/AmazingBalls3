@@ -24,6 +24,15 @@ public class Player1Controller : MonoBehaviour {
 			rb.AddForce (transform.up * -speed);
 	}
 
+    void Fire()
+    {
+        Projectile ballClone;
+        ballClone = (Projectile) Instantiate(Resources.Load("Projectile"));
+        Vector2 spawnPosition = new Vector2(Instance.transform.position.x, Instance.transform.position.y);
+        ballClone.transform.position = spawnPosition;
+
+    }
+
 	// Use this for initialization
 	void Start () {
 	
@@ -31,6 +40,7 @@ public class Player1Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKey(KeyCode.Space))
+            Fire();
 	}
 }
