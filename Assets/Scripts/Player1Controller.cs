@@ -6,14 +6,16 @@ public class Player1Controller : MonoBehaviour {
 
 	public static Player1Controller Instance;
     public List<Sprite> sprites = new List<Sprite>();
+    public Rigidbody2D rb = new Rigidbody2D();
+    public Projectile projectile;
+    [SerializeField] private float speed = 0f;
 
-  	public Projectile projectile;
-	private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
+    private const int _maxAmmo = 5;
+    private int _ammo = _maxAmmo;
+    private bool _runOnce = true;
 
-	[SerializeField] private float speed = 0f;
-	public Rigidbody2D rb = new Rigidbody2D ();
 
-    private bool runOnce = false;
     void Awake () {
 		Instance = this;
 	}
@@ -78,17 +80,32 @@ public class Player1Controller : MonoBehaviour {
 	void Update () {
         float fireIsPressed = Input.GetAxisRaw("Fire1");
         if (fireIsPressed == 0)
-            runOnce = false;
-        if (fireIsPressed == 1 && !runOnce)
+            _runOnce = true;
+        if (fireIsPressed == 1 && _runOnce)
         {
-            Fire();
-            StartCoroutine(FireRate());
-            runOnce = true;
+            if(_ammo > 0)
+            {
+                Fire();
+                StartCoroutine(FireRate());
+                _runOnce = false;
+            }
         }
+
+        if (_ammo > 0)
+            StartCoroutine(Reload());
 	}
 
     public IEnumerator FireRate()
     {
         yield return new WaitForSeconds(1f);
+    }
+
+    public IEnumerator Reload()
+    {
+        while(_ammo < _maxAmmo)
+        {
+            yield return new WaitForSeconds(1f);
+            _ammo++;
+        }
     }
 }
