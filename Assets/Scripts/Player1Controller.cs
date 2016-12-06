@@ -8,11 +8,12 @@ public class Player1Controller : MonoBehaviour {
     public List<Sprite> sprites = new List<Sprite>();
     public Rigidbody2D rb = new Rigidbody2D();
     public Projectile projectile;
+    public string color;
     [SerializeField] private float speed = 0f;
 
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     private const int _maxAmmo = 5;
-    private int _ammo = _maxAmmo;
+    public int _ammo = _maxAmmo;    //is public for testing
     private bool _runOnce = true;
 
 
@@ -31,21 +32,25 @@ public class Player1Controller : MonoBehaviour {
 
 	public void SpriteToBlue () {
 		spriteRenderer.sprite = sprites[0];
+        color = "blue";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToPink () {
 		spriteRenderer.sprite = sprites[1];
+        color = "pink";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToRed () {
 		spriteRenderer.sprite = sprites[2];
+        color = "red";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToGreen () {
 		spriteRenderer.sprite = sprites[3];
+        color = "green";
 		ToPlayer2Select ();
 	}
 
@@ -102,7 +107,7 @@ public class Player1Controller : MonoBehaviour {
 
     public IEnumerator Reload()
     {
-        while(_ammo < _maxAmmo)
+        while (_ammo < _maxAmmo)
         {
             yield return new WaitForSeconds(1f);
             _ammo++;
