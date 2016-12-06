@@ -14,7 +14,9 @@ public class Player1Controller : MonoBehaviour {
     public SpriteRenderer spriteRenderer;
     private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
+    private float fireIsPressed;
     private bool _runOnce = true;
+    private bool _doneReloading = true;
 
 
     void Awake () {
@@ -71,9 +73,13 @@ public class Player1Controller : MonoBehaviour {
 
     void Fire()
     {
-        Projectile ballClone;
-        Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
-        ballClone = (Projectile) Instantiate(projectile, spawnPosition, Quaternion.identity);
+        if(_ammo > 0)
+        {
+            Projectile ballClone;
+            Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
+            ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
+            _ammo--;
+        }
     }
 
 	// Use this for initialization
@@ -82,8 +88,10 @@ public class Player1Controller : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        float fireIsPressed = Input.GetAxisRaw("Fire1");
+	void Update ()
+    {
+        fireIsPressed = Input.GetAxisRaw("Fire1");
+
         if (fireIsPressed == 0)
             _runOnce = true;
         if (fireIsPressed == 1 && _runOnce)
@@ -96,8 +104,11 @@ public class Player1Controller : MonoBehaviour {
             }
         }
 
-        if (_ammo > 0)
+        if (_ammo < _maxAmmo && _doneReloading)
+        {
             StartCoroutine(Reload());
+            _doneReloading = false;
+        }
 	}
 
     public IEnumerator FireRate()
@@ -107,10 +118,13 @@ public class Player1Controller : MonoBehaviour {
 
     public IEnumerator Reload()
     {
+        Debug.Log("Reload");
         while (_ammo < _maxAmmo)
         {
             yield return new WaitForSeconds(1f);
             _ammo++;
+            Debug.Log("Is Reloading");
         }
+        _doneReloading = true;
     }
 }

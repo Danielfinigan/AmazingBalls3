@@ -38,7 +38,7 @@ public class ViewInGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        colorAmmo.text = Player1Controller.Instance._ammo.ToString();
 	}
 
     public void Reload(int numOfAmmo)
