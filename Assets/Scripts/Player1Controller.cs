@@ -6,9 +6,11 @@ public class Player1Controller : MonoBehaviour {
 	public static Player1Controller Instance;
 
 	[SerializeField] private float speed = 15f;
+    public Projectile projectile;
 	public Rigidbody2D rb = new Rigidbody2D ();
 
-	void Awake () {
+    private bool runOnce = false;
+    void Awake () {
 		Instance = this;
 	}
 
@@ -27,10 +29,8 @@ public class Player1Controller : MonoBehaviour {
     void Fire()
     {
         Projectile ballClone;
-        ballClone = (Projectile) Instantiate(Resources.Load("Projectile"));
-        Vector2 spawnPosition = new Vector2(Instance.transform.position.x, Instance.transform.position.y);
-        ballClone.transform.position = spawnPosition;
-
+        Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
+        ballClone = (Projectile) Instantiate(projectile, spawnPosition, Quaternion.identity);
     }
 
 	// Use this for initialization
@@ -40,7 +40,19 @@ public class Player1Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Space))
+        float fireIsPressed = Input.GetAxisRaw("Fire1");
+        if (fireIsPressed == 0)
+            runOnce = false;
+        if (fireIsPressed == 1 && !runOnce)
+        {
             Fire();
+            StartCoroutine(FireRate());
+            runOnce = true;
+        }
 	}
+
+    public IEnumerator FireRate()
+    {
+        yield return new WaitForSeconds(1f);
+    }
 }

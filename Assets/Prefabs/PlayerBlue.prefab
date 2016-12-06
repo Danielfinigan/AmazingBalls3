@@ -24,7 +24,7 @@ GameObject:
   - 50: {fileID: 50000012638287558}
   - 58: {fileID: 58000013980883088}
   m_Layer: 0
-  m_Name: PlayerOne
+  m_Name: PlayerBlue
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,6 +86,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  projectile: {fileID: 114000010471068280, guid: df53fcab113dd114c98a650c0824e8f2,
+    type: 2}
   rb: {fileID: 50000012638287558}
 --- !u!212 &212000013572247106
 SpriteRenderer:
