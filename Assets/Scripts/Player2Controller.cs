@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player2Controller : MonoBehaviour {
 
 	public static Player2Controller Instance;
-	public Sprite sprite1;
-	public Sprite sprite2;
-	public Sprite sprite3;
-	public Sprite sprite4;
+    public List<Sprite> sprites = new List<Sprite>();
 
 	private SpriteRenderer spriteRenderer;
 
-	[SerializeField] private float speed = 30f;
+	[SerializeField] private float speed = 0f;
 	public Rigidbody2D rb = new Rigidbody2D ();
 
 	void Awake () {
@@ -20,7 +18,7 @@ public class Player2Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 30f;
+			speed = 50f;
 	}
 
 	public void ToGame () {
@@ -28,22 +26,22 @@ public class Player2Controller : MonoBehaviour {
 	}
 
 	public void SpriteTo1 () {
-		spriteRenderer.sprite = sprite1;
+		spriteRenderer.sprite = sprites[0];
 		ToGame ();
 	}
 
 	public void SpriteTo2 () {
-		spriteRenderer.sprite = sprite2;
+		spriteRenderer.sprite = sprites[1];
 		ToGame ();
 	}
 
 	public void SpriteTo3 () {
-		spriteRenderer.sprite = sprite3;
+		spriteRenderer.sprite = sprites[2];
 		ToGame ();
 	}
 
 	public void SpriteTo4 () {
-		spriteRenderer.sprite = sprite4;
+		spriteRenderer.sprite = sprites[3];
 		ToGame ();
 	}
 
@@ -57,8 +55,6 @@ public class Player2Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = GetComponent<SpriteRenderer> (); 
-		if (spriteRenderer.sprite == null)
-			spriteRenderer.sprite = sprite1;
 	}
 
 	// Update is called once per frame

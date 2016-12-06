@@ -52,7 +52,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1000010126693658}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_IsKinematic: 0
@@ -85,6 +85,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c04403b5b17ba47ac80537521a7eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite1: {fileID: 0}
+  sprite2: {fileID: 0}
+  sprite3: {fileID: 0}
+  sprite4: {fileID: 0}
   speed: 15
   rb: {fileID: 50000012258536282}
 --- !u!212 &212000014026087316

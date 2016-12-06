@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player1Controller : MonoBehaviour {
 
 	public static Player1Controller Instance;
-	public Sprite sprite1;
-	public Sprite sprite2;
-	public Sprite sprite3;
-	public Sprite sprite4;
+    public List<Sprite> sprites = new List<Sprite>();
 
-	[SerializeField] private float speed = 15f;
   	public Projectile projectile;
 	private SpriteRenderer spriteRenderer;
 
-	[SerializeField] private float speed = 30f;
+	[SerializeField] private float speed = 0f;
 	public Rigidbody2D rb = new Rigidbody2D ();
 
     private bool runOnce = false;
@@ -23,7 +20,7 @@ public class Player1Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 30f;
+			speed = 50f;
 	}
 
 	public void ToPlayer2Select () {
@@ -31,31 +28,36 @@ public class Player1Controller : MonoBehaviour {
 	}
 
 	public void SpriteTo1 () {
-		spriteRenderer.sprite = sprite1;
+		spriteRenderer.sprite = sprites[0];
 		ToPlayer2Select ();
 	}
 
 	public void SpriteTo2 () {
-		spriteRenderer.sprite = sprite2;
+		spriteRenderer.sprite = sprites[1];
 		ToPlayer2Select ();
 	}
 
 	public void SpriteTo3 () {
-		spriteRenderer.sprite = sprite3;
+		spriteRenderer.sprite = sprites[2];
 		ToPlayer2Select ();
 	}
 
 	public void SpriteTo4 () {
-		spriteRenderer.sprite = sprite4;
+		spriteRenderer.sprite = sprites[3];
 		ToPlayer2Select ();
 	}
 
 	void FixedUpdate () {
-		if (Input.GetKey (KeyCode.W))
-			rb.AddForce (transform.up * speed);
-		if (Input.GetKey (KeyCode.S))
-			rb.AddForce (transform.up * -speed);
-	}
+        if (Instance.transform.position.y < 6f && Instance.transform.position.y > -6f)
+        {
+            if (Input.GetKey(KeyCode.W))
+                rb.AddForce(transform.up * speed);
+            if (Input.GetKey(KeyCode.S))
+                rb.AddForce(transform.up * -speed);
+        }
+        else if (Instance.transform.position.y < 6f)
+            Instance.transform.position = new Vector2(Instance.transform.position.x, Instance.transform.position.y - .5f);
+    }
 
     void Fire()
     {
@@ -67,8 +69,6 @@ public class Player1Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = GetComponent<SpriteRenderer> (); 
-		if (spriteRenderer.sprite == null)
-			spriteRenderer.sprite = sprite1;
 	}
 	
 	// Update is called once per frame
