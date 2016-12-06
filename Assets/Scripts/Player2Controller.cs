@@ -4,8 +4,14 @@ using System.Collections;
 public class Player2Controller : MonoBehaviour {
 
 	public static Player2Controller Instance;
+	public Sprite sprite1;
+	public Sprite sprite2;
+	public Sprite sprite3;
+	public Sprite sprite4;
 
-	[SerializeField] private float speed = 15f;
+	private SpriteRenderer spriteRenderer;
+
+	[SerializeField] private float speed = 30f;
 	public Rigidbody2D rb = new Rigidbody2D ();
 
 	void Awake () {
@@ -14,7 +20,31 @@ public class Player2Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 15f;
+			speed = 30f;
+	}
+
+	public void ToGame () {
+		GameManager.Instance.StartGame ();
+	}
+
+	public void SpriteTo1 () {
+		spriteRenderer.sprite = sprite1;
+		ToGame ();
+	}
+
+	public void SpriteTo2 () {
+		spriteRenderer.sprite = sprite2;
+		ToGame ();
+	}
+
+	public void SpriteTo3 () {
+		spriteRenderer.sprite = sprite3;
+		ToGame ();
+	}
+
+	public void SpriteTo4 () {
+		spriteRenderer.sprite = sprite4;
+		ToGame ();
 	}
 
 	void FixedUpdate () {
@@ -26,7 +56,9 @@ public class Player2Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		spriteRenderer = GetComponent<SpriteRenderer> (); 
+		if (spriteRenderer.sprite == null)
+			spriteRenderer.sprite = sprite1;
 	}
 
 	// Update is called once per frame
