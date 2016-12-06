@@ -1093,7 +1093,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2093813540}
-        m_MethodName: SpriteTo3
+        m_MethodName: SpriteToRed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1416,7 +1416,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2093813540}
-        m_MethodName: SpriteTo2
+        m_MethodName: SpriteToPink
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1820,7 +1820,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2093813540}
-        m_MethodName: SpriteTo1
+        m_MethodName: SpriteToBlue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2347,7 +2347,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077940770}
-        m_MethodName: SpriteTo3
+        m_MethodName: SpriteToRed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2807,7 +2807,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2093813540}
-        m_MethodName: SpriteTo4
+        m_MethodName: SpriteToGreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3076,7 +3076,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb1f5e0f038777649b549652de149e13, type: 3}
   - {fileID: 21300000, guid: 563c0f571ddfe4e4588dddaf570e3346, type: 3}
   - {fileID: 21300000, guid: 156a02ffbef3ed648b49fa31ded41012, type: 3}
-  speed: 30
+  speed: 0
   rb: {fileID: 1077940772}
 --- !u!58 &1077940771
 CircleCollider2D:
@@ -3108,7 +3108,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!1 &1081633500
 GameObject:
   m_ObjectHideFlags: 0
@@ -4120,7 +4120,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077940770}
-        m_MethodName: SpriteTo1
+        m_MethodName: SpriteToBlue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4916,7 +4916,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077940770}
-        m_MethodName: SpriteTo4
+        m_MethodName: SpriteToGreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4973,7 +4973,6 @@ GameObject:
   - 114: {fileID: 2093813540}
   - 50: {fileID: 2093813541}
   - 58: {fileID: 2093813542}
-  - 58: {fileID: 2093813543}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -5063,7 +5062,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!58 &2093813542
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5074,20 +5073,6 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.5
---- !u!58 &2093813543
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2093813537}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
@@ -5168,7 +5153,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1077940770}
-        m_MethodName: SpriteTo2
+        m_MethodName: SpriteToPink
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

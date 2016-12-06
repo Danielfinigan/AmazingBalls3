@@ -25,22 +25,22 @@ public class Player2Controller : MonoBehaviour {
 		GameManager.Instance.StartGame ();
 	}
 
-	public void SpriteTo1 () {
+	public void SpriteToBlue () {
 		spriteRenderer.sprite = sprites[0];
 		ToGame ();
 	}
 
-	public void SpriteTo2 () {
+	public void SpriteToPink () {
 		spriteRenderer.sprite = sprites[1];
 		ToGame ();
 	}
 
-	public void SpriteTo3 () {
+	public void SpriteToRed () {
 		spriteRenderer.sprite = sprites[2];
 		ToGame ();
 	}
 
-	public void SpriteTo4 () {
+	public void SpriteToGreen () {
 		spriteRenderer.sprite = sprites[3];
 		ToGame ();
 	}

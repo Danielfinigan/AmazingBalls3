@@ -27,36 +27,39 @@ public class Player1Controller : MonoBehaviour {
 		GameManager.Instance.Player2Select ();
 	}
 
-	public void SpriteTo1 () {
+	public void SpriteToBlue () {
 		spriteRenderer.sprite = sprites[0];
 		ToPlayer2Select ();
 	}
 
-	public void SpriteTo2 () {
+	public void SpriteToPink () {
 		spriteRenderer.sprite = sprites[1];
 		ToPlayer2Select ();
 	}
 
-	public void SpriteTo3 () {
+	public void SpriteToRed () {
 		spriteRenderer.sprite = sprites[2];
 		ToPlayer2Select ();
 	}
 
-	public void SpriteTo4 () {
+	public void SpriteToGreen () {
 		spriteRenderer.sprite = sprites[3];
 		ToPlayer2Select ();
 	}
 
+    //Upon Projectile Collision, take down player Health and destroy projectile
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Projectile")
+            Destroy(other.gameObject);
+    }
 	void FixedUpdate () {
-        if (Instance.transform.position.y < 6f && Instance.transform.position.y > -6f)
-        {
+
             if (Input.GetKey(KeyCode.W))
                 rb.AddForce(transform.up * speed);
             if (Input.GetKey(KeyCode.S))
                 rb.AddForce(transform.up * -speed);
-        }
-        else if (Instance.transform.position.y < 6f)
-            Instance.transform.position = new Vector2(Instance.transform.position.x, Instance.transform.position.y - .5f);
+        
     }
 
     void Fire()
