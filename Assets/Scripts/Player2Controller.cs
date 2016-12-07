@@ -6,13 +6,22 @@ public class Player2Controller : MonoBehaviour {
 
 	public static Player2Controller Instance;
     public List<Sprite> sprites = new List<Sprite>();
+    public Rigidbody2D rb = new Rigidbody2D();
+    public Projectile projectile;
+    public string color;
+    [SerializeField]
+    private float speed;
 
-	private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+    private const int _maxAmmo = 5;
+    public int _ammo = _maxAmmo;    //is public for testing
+    [SerializeField]
+    private bool _runOnce = true;
+    [SerializeField]
+    private bool _canFire = true;
+    private IEnumerator _reload;
 
-	[SerializeField] private float speed = 0f;
-	public Rigidbody2D rb = new Rigidbody2D ();
-
-	void Awake () {
+    void Awake () {
 		Instance = this;
 	}
 
@@ -52,13 +61,58 @@ public class Player2Controller : MonoBehaviour {
 			rb.AddForce (transform.up * -speed);
 	}
 
-	// Use this for initialization
-	void Start () {
-		spriteRenderer = GetComponent<SpriteRenderer> (); 
-	}
+    void Fire()
+    {
+        //Fires a projectile
+        if (_canFire)
+        {
+            Projectile ballClone;
+            Vector2 spawnPosition = new Vector2(Instance.transform.position.x - 1f, Instance.transform.position.y);
+            ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
+            ballClone.setSpeed(-30f);
+            _ammo--;
+        }
+    }
 
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        bool fireIsPressed = Input.GetKey(KeyCode.LeftArrow);       //checks if the fire key is pressed
+        bool reloadIsPressed = Input.GetKey(KeyCode.RightControl);   //checks if the reload key is pressed
+
+        if (!fireIsPressed && !reloadIsPressed)
+            _runOnce = true;
+        else if (fireIsPressed && _runOnce)
+        {
+            if (_ammo > 0)
+            {
+                Fire();
+                _runOnce = false;
+            }
+        }
+        else if (reloadIsPressed && _runOnce)
+        {
+            _reload = Reload();
+            StartCoroutine(_reload);
+            _runOnce = false;
+        }
+    }
+
+    //Reloads projectiles when a button is pressed
+    public IEnumerator Reload()
+    {
+        _canFire = false;
+        while (_ammo < _maxAmmo)
+        {
+            yield return new WaitForSeconds(1f);
+            _ammo++;
+        }
+        _canFire = true;
+    }
 }

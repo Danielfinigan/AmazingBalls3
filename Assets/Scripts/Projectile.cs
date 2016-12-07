@@ -3,18 +3,27 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    public float speed = 25f;
-    
+    public float speed = 30f;
     // Use this for initialization
     void Awake()
     {
         GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(30f, 0);
     }
     
-	// Update is called once per frame
-	void Update ()
+    public void setSpeed(float s)
     {
-        //GetComponent<Rigidbody2D>().AddForce(new Vector2(speed, 0));
+        speed = s;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+            Destroy(this.gameObject);
+    }
+    // Update is called once per frame
+    void Update ()
+    {
+
     }
 }

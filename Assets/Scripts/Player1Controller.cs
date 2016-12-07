@@ -14,7 +14,7 @@ public class Player1Controller : MonoBehaviour {
     public SpriteRenderer spriteRenderer;
     private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
-    private float fireIsPressed;
+   // private float fireIsPressed;
     [SerializeField] private bool _runOnce = true;
     [SerializeField] private bool _canFire = true;
     private IEnumerator _reload;
@@ -60,11 +60,8 @@ public class Player1Controller : MonoBehaviour {
 	}
 
     //Upon Projectile Collision, take down player Health and destroy projectile
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Projectile")
-            Destroy(other.gameObject);
-    }
+
+
 	void FixedUpdate () {
 
             if (Input.GetKey(KeyCode.W))
@@ -81,9 +78,9 @@ public class Player1Controller : MonoBehaviour {
             Projectile ballClone;
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
             ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
+            ballClone.setSpeed(30f);
             _ammo--;
-        }
-      
+        }      
     }
 
 	// Use this for initialization
@@ -94,11 +91,12 @@ public class Player1Controller : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        fireIsPressed = Input.GetAxisRaw("Fire1");
+        bool fireIsPressed = Input.GetKey(KeyCode.D);   //checks if the fire key is pressed
+        bool reloadIsPressed = Input.GetKey(KeyCode.R); //checks if the reload key is pressed
 
-        if (fireIsPressed == 0 && !Input.GetKey(KeyCode.R))
+        if (!fireIsPressed && !reloadIsPressed)
             _runOnce = true;
-        else if (fireIsPressed == 1 && _runOnce)
+        else if (fireIsPressed && _runOnce)
         {
             if(_ammo > 0)
             {
@@ -106,9 +104,8 @@ public class Player1Controller : MonoBehaviour {
                 _runOnce = false;
             }
         }
-        else if (Input.GetKey(KeyCode.R) && _runOnce)
+        else if (reloadIsPressed && _runOnce)
         {
-            Debug.Log("Reload");
             _reload = Reload();
             StartCoroutine(_reload);
             _runOnce = false;
@@ -118,7 +115,6 @@ public class Player1Controller : MonoBehaviour {
     //Reloads projectiles when a button is pressed
     public IEnumerator Reload()
     {
-        Debug.Log("reloading");
         _canFire = false;
         while (_ammo < _maxAmmo)
         {
