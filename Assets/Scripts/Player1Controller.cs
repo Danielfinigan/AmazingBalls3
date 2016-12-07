@@ -15,12 +15,15 @@ public class Player1Controller : MonoBehaviour {
     private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
     private float fireIsPressed;
-    private bool _runOnce = true;
-    private bool _doneReloading = true;
+    [SerializeField] private bool _runOnce = true;
+    [SerializeField] private bool _canFire = true;
+    private IEnumerator _reload;
 
 
     void Awake () {
 		Instance = this;
+        _canFire = true;
+        _reload = Reload();
 	}
 
 	public void StartGame () {
@@ -67,19 +70,20 @@ public class Player1Controller : MonoBehaviour {
             if (Input.GetKey(KeyCode.W))
                 rb.AddForce(transform.up * speed);
             if (Input.GetKey(KeyCode.S))
-                rb.AddForce(transform.up * -speed);
-        
+                rb.AddForce(transform.up * -speed);        
     }
 
     void Fire()
-    {
-        if(_ammo > 0)
+    {        
+        //Fires a projectile
+        if (_canFire)
         {
             Projectile ballClone;
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
             ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             _ammo--;
         }
+      
     }
 
 	// Use this for initialization
@@ -92,39 +96,48 @@ public class Player1Controller : MonoBehaviour {
     {
         fireIsPressed = Input.GetAxisRaw("Fire1");
 
-        if (fireIsPressed == 0)
+        if (fireIsPressed == 0 && !Input.GetKey(KeyCode.R))
             _runOnce = true;
-        if (fireIsPressed == 1 && _runOnce)
+        else if (fireIsPressed == 1 && _runOnce)
         {
             if(_ammo > 0)
             {
                 Fire();
-                StartCoroutine(FireRate());
                 _runOnce = false;
             }
         }
-
-        if (_ammo < _maxAmmo && _doneReloading)
+        else if (Input.GetKey(KeyCode.R) && _runOnce)
         {
-            StartCoroutine(Reload());
-            _doneReloading = false;
+            Debug.Log("Reload");
+            _reload = Reload();
+            StartCoroutine(_reload);
+            _runOnce = false;
         }
 	}
-
-    public IEnumerator FireRate()
-    {
-        yield return new WaitForSeconds(1f);
-    }
-
+    
+    //Reloads projectiles when a button is pressed
     public IEnumerator Reload()
     {
-        Debug.Log("Reload");
+        Debug.Log("reloading");
+        _canFire = false;
         while (_ammo < _maxAmmo)
         {
             yield return new WaitForSeconds(1f);
             _ammo++;
-            Debug.Log("Is Reloading");
+        }
+        _canFire = true;
+    }
+    //Reloads a projectile once a second
+   /* public IEnumerator Reload()
+    {
+        //waits 2 seconds since the last projectile fired before reloading begins
+        yield return new WaitForSeconds(2f);
+        while(_ammo < _maxAmmo)
+        {
+            yield return new WaitForSeconds(1f);
+            _ammo++;
         }
         _doneReloading = true;
-    }
+        _canFire = true;
+    }*/
 }
