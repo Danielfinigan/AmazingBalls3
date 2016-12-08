@@ -12,6 +12,7 @@ public class Player1Controller : MonoBehaviour {
     [SerializeField] private float speed = 0f;
 
     public SpriteRenderer spriteRenderer;
+    private SpriteRenderer projectileRenderer;
     private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
    // private float fireIsPressed;
@@ -37,24 +38,28 @@ public class Player1Controller : MonoBehaviour {
 
 	public void SpriteToBlue () {
 		spriteRenderer.sprite = sprites[0];
+        projectileRenderer.sprite = sprites[0];
         color = "blue";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToPink () {
 		spriteRenderer.sprite = sprites[1];
+        projectileRenderer.sprite = sprites[1];
         color = "pink";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToRed () {
 		spriteRenderer.sprite = sprites[2];
+        projectileRenderer.sprite = sprites[2];
         color = "red";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToGreen () {
 		spriteRenderer.sprite = sprites[3];
+        projectileRenderer.sprite = sprites[3];
         color = "green";
 		ToPlayer2Select ();
 	}
@@ -75,18 +80,20 @@ public class Player1Controller : MonoBehaviour {
         //Fires a projectile
         if (_canFire)
         {
-            Projectile ballClone;
+            Projectile projectileClone;
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
-            ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
-            ballClone.setSpeed(30f);
+            projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
+            projectileClone.Speed = 30f;
+            projectileClone.ProjectileSprite = projectileRenderer;
             _ammo--;
         }      
     }
 
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = GetComponent<SpriteRenderer> (); 
-	}
+		spriteRenderer = GetComponent<SpriteRenderer> ();
+        projectileRenderer = GetComponent<SpriteRenderer>();
+    }
 	
 	// Update is called once per frame
 	void Update ()

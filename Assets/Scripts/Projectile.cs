@@ -3,17 +3,42 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    public float speed = 30f;
+    private float speed;
+    private SpriteRenderer projectileSprite;
+    public float Speed
+        {
+           get
+            {
+            return speed;
+            }
+            set
+            {
+            speed = value;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+            }
+        }
+    public SpriteRenderer ProjectileSprite
+    {
+        get
+        {
+            return projectileSprite;
+        }
+        set
+        {
+            projectileSprite = value;
+            GetComponent<SpriteRenderer>().sprite = projectileSprite.sprite;
+        }
+    }
+
     // Use this for initialization
     void Awake()
     {
         GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
-    
-    public void setSpeed(float s)
+
+    void Start()
     {
-        speed = s;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+        projectileSprite = GetComponent<SpriteRenderer>();
     }
 
     void OnCollisionEnter2D(Collision2D other)

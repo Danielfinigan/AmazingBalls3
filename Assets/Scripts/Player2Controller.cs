@@ -12,7 +12,8 @@ public class Player2Controller : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer ballRenderer;
+    private SpriteRenderer projectileRenderer;
     private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
     [SerializeField]
@@ -35,23 +36,28 @@ public class Player2Controller : MonoBehaviour {
 	}
 
 	public void SpriteToBlue () {
-		spriteRenderer.sprite = sprites[0];
-		ToGame ();
+		ballRenderer.sprite = sprites[0];
+        projectileRenderer.sprite = sprites[0];
+        ToGame ();
 	}
 
 	public void SpriteToPink () {
-		spriteRenderer.sprite = sprites[1];
-		ToGame ();
+		ballRenderer.sprite = sprites[1];
+        projectileRenderer.sprite = sprites[1];
+        ToGame ();
 	}
 
-	public void SpriteToRed () {
-		spriteRenderer.sprite = sprites[2];
-		ToGame ();
+	public void SpriteToRed ()
+    {
+        projectileRenderer.sprite = sprites[2];
+        ballRenderer.sprite = sprites[2];
+        ToGame ();
 	}
 
 	public void SpriteToGreen () {
-		spriteRenderer.sprite = sprites[3];
-		ToGame ();
+		ballRenderer.sprite = sprites[3];
+        projectileRenderer.sprite = sprites[3];
+        ToGame ();
 	}
 
 	void FixedUpdate () {
@@ -66,10 +72,11 @@ public class Player2Controller : MonoBehaviour {
         //Fires a projectile
         if (_canFire)
         {
-            Projectile ballClone;
+            Projectile projectileClone;
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x - 1f, Instance.transform.position.y);
-            ballClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
-            ballClone.setSpeed(-30f);
+            projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
+            projectileClone.Speed = -30f;
+            projectileClone.ProjectileSprite = projectileRenderer;
             _ammo--;
         }
     }
@@ -77,7 +84,8 @@ public class Player2Controller : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        ballRenderer = GetComponent<SpriteRenderer>();
+        projectileRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
