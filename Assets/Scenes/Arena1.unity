@@ -3607,7 +3607,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 563c0f571ddfe4e4588dddaf570e3346, type: 3}
   - {fileID: 21300000, guid: 156a02ffbef3ed648b49fa31ded41012, type: 3}
   rb: {fileID: 1077940772}
-  projectile: {fileID: 114000010471068280, guid: df53fcab113dd114c98a650c0824e8f2,
+  projectile: {fileID: 114000012428476340, guid: 66c4efca472414f4e9b428a239e6c023,
     type: 2}
   color: 
   speed: 50

@@ -38,6 +38,7 @@ public class Player1Controller : MonoBehaviour {
 	public void SpriteToBlue () {
         ballRenderer.sprite = sprites[0];
         projectileRenderer.sprite = sprites[0];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "blue";
 		ToPlayer2Select ();
 	}
@@ -45,6 +46,7 @@ public class Player1Controller : MonoBehaviour {
 	public void SpriteToPink () {
         ballRenderer.sprite = sprites[1];
         projectileRenderer.sprite = sprites[1];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "pink";
 		ToPlayer2Select ();
 	}
@@ -52,6 +54,7 @@ public class Player1Controller : MonoBehaviour {
 	public void SpriteToRed () {
         ballRenderer.sprite = sprites[2];
         projectileRenderer.sprite = sprites[2];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "red";
 		ToPlayer2Select ();
 	}
@@ -59,6 +62,7 @@ public class Player1Controller : MonoBehaviour {
 	public void SpriteToGreen () {
         ballRenderer.sprite = sprites[3];
         projectileRenderer.sprite = sprites[3];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "green";
 		ToPlayer2Select ();
 	}
@@ -83,7 +87,7 @@ public class Player1Controller : MonoBehaviour {
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = 30f;
-            projectileClone.ProjectileSprite = projectileRenderer;
+            ViewInGame.instance.Fired(1, _ammo);
             _ammo--;
         }      
     }
@@ -125,6 +129,7 @@ public class Player1Controller : MonoBehaviour {
         while (_ammo < _maxAmmo)
         {
             yield return new WaitForSeconds(1f);
+            ViewInGame.instance.Reload(1, _ammo);
             _ammo++;
         }
         _canFire = true;

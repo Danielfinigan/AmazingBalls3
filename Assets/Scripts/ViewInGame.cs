@@ -78,18 +78,12 @@ public class ViewInGame : MonoBehaviour {
             remainingAmmo2[i].sprite = ammoType2.sprite;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //colorLabel1.text = Player1Controller.Instance._ammo.ToString();
-        //colorLabel2.text = Player2Controller.Instance._ammo.ToString();
-	}
 
     public void Reload(int player, int ammoNumber)
     {
         if(player == 1)
         {
-
+            remainingAmmo1[ammoNumber].enabled = true;
         }
         else if(player == 2)
         {
@@ -99,7 +93,6 @@ public class ViewInGame : MonoBehaviour {
 
     public void Fired(int player, int projectileNumber)
     {
-        Debug.Log("Fired");
         projectileNumber--; //-1 to account for array position
         if (player == 1)
             remainingAmmo1[projectileNumber].enabled = false;

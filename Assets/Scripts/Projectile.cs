@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour {
             {
             speed = value;
             GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
-            }
+        }
         }
     public SpriteRenderer ProjectileSprite
     {

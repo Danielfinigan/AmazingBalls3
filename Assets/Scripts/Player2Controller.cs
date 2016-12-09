@@ -37,6 +37,7 @@ public class Player2Controller : MonoBehaviour {
 	public void SpriteToBlue () {
 		ballRenderer.sprite = sprites[0];
         projectileRenderer.sprite = sprites[0];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "blue";
         ToGame ();
 	}
@@ -44,14 +45,16 @@ public class Player2Controller : MonoBehaviour {
 	public void SpriteToPink () {
 		ballRenderer.sprite = sprites[1];
         projectileRenderer.sprite = sprites[1];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "pink";
         ToGame ();
 	}
 
 	public void SpriteToRed ()
     {
-        projectileRenderer.sprite = sprites[2];
         ballRenderer.sprite = sprites[2];
+        projectileRenderer.sprite = sprites[2];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "red";
         ToGame ();
 	}
@@ -59,6 +62,7 @@ public class Player2Controller : MonoBehaviour {
 	public void SpriteToGreen () {
 		ballRenderer.sprite = sprites[3];
         projectileRenderer.sprite = sprites[3];
+        projectile.ProjectileSprite = projectileRenderer;
         color = "green";
         ToGame ();
 	}
@@ -79,7 +83,6 @@ public class Player2Controller : MonoBehaviour {
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x - 1f, Instance.transform.position.y);
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = -30f;
-            projectileClone.ProjectileSprite = projectileRenderer;
             ViewInGame.instance.Fired(2, _ammo);
             _ammo--;
         }
