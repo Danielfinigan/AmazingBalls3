@@ -9,10 +9,16 @@ public class ViewInGame : MonoBehaviour {
     public Image ammoType1;
     public Text colorLabel2;
     public Image ammoType2;
+    public Image[] remainingAmmo1 = new Image[Player1Controller._maxAmmo];
+    public Image[] remainingAmmo2 = new Image[Player2Controller._maxAmmo];
 
     private float imagePosition;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Awake()
+    {
+        instance = this;
+    }
+    void Start ()
     {
         //sets Player1 UI
         if (Player1Controller.Instance.color == "blue")
@@ -35,7 +41,13 @@ public class ViewInGame : MonoBehaviour {
             colorLabel1.text = "Green Ammo";
             colorLabel1.color = Color.green;
         }
-        //ammoType1.sprite = Player1Controller.Instance.spriteRenderer.sprite;
+
+        //Sets Player1 ammo sprites to same color as player
+        ammoType1.sprite = Player1Controller.Instance.ballRenderer.sprite;
+        for(int i = 0; i < remainingAmmo1.Length; i++)
+        {
+            remainingAmmo1[i].sprite = ammoType1.sprite;
+        }
 
         //sets Player2 UI
         if (Player2Controller.Instance.color == "blue")
@@ -58,34 +70,41 @@ public class ViewInGame : MonoBehaviour {
             colorLabel2.text = "Green Ammo";
             colorLabel2.color = Color.green;
         }
-        //ammoType2.sprite = Player1Controller.Instance.spriteRenderer.sprite;
+        //Sets Player2 ammo sprites to same color as player
+        ammoType2.sprite = Player2Controller.Instance.ballRenderer.sprite;
+        for (int i = 0; i < remainingAmmo2.Length; i++)
+        {
+            remainingAmmo2[i].enabled = true;
+            remainingAmmo2[i].sprite = ammoType2.sprite;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        colorLabel1.text = Player1Controller.Instance._ammo.ToString();
-        colorLabel2.text = Player2Controller.Instance._ammo.ToString();
+        //colorLabel1.text = Player1Controller.Instance._ammo.ToString();
+        //colorLabel2.text = Player2Controller.Instance._ammo.ToString();
 	}
 
-    public void Reload(int numOfAmmo)
+    public void Reload(int player, int ammoNumber)
     {
-        Image newAmmo;
-        for(int i = 1; i < numOfAmmo; i -= 20)
+        if(player == 1)
         {
 
         }
-        newAmmo = Instantiate(ammoType1);
-        newAmmo.transform.SetParent(this.transform, false);
+        else if(player == 2)
+        {
+            remainingAmmo2[ammoNumber].enabled = true;
+        }
     }
 
-    void ammoLabel()
+    public void Fired(int player, int projectileNumber)
     {
-
-    }
-
-    void Fired()
-    {
-
+        Debug.Log("Fired");
+        projectileNumber--; //-1 to account for array position
+        if (player == 1)
+            remainingAmmo1[projectileNumber].enabled = false;
+        else if (player == 2)
+            remainingAmmo2[projectileNumber].enabled = false;
     }
 
 

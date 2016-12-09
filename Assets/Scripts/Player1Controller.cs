@@ -10,12 +10,11 @@ public class Player1Controller : MonoBehaviour {
     public Projectile projectile;
     public string color;
     [SerializeField] private float speed = 0f;
+    public SpriteRenderer ballRenderer;
+    public const int _maxAmmo = 5;
 
-    public SpriteRenderer spriteRenderer;
-    private SpriteRenderer projectileRenderer;
-    private const int _maxAmmo = 5;
     public int _ammo = _maxAmmo;    //is public for testing
-   // private float fireIsPressed;
+    private SpriteRenderer projectileRenderer;
     [SerializeField] private bool _runOnce = true;
     [SerializeField] private bool _canFire = true;
     private IEnumerator _reload;
@@ -37,28 +36,28 @@ public class Player1Controller : MonoBehaviour {
 	}
 
 	public void SpriteToBlue () {
-		spriteRenderer.sprite = sprites[0];
+        ballRenderer.sprite = sprites[0];
         projectileRenderer.sprite = sprites[0];
         color = "blue";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToPink () {
-		spriteRenderer.sprite = sprites[1];
+        ballRenderer.sprite = sprites[1];
         projectileRenderer.sprite = sprites[1];
         color = "pink";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToRed () {
-		spriteRenderer.sprite = sprites[2];
+        ballRenderer.sprite = sprites[2];
         projectileRenderer.sprite = sprites[2];
         color = "red";
 		ToPlayer2Select ();
 	}
 
 	public void SpriteToGreen () {
-		spriteRenderer.sprite = sprites[3];
+        ballRenderer.sprite = sprites[3];
         projectileRenderer.sprite = sprites[3];
         color = "green";
 		ToPlayer2Select ();
@@ -91,7 +90,7 @@ public class Player1Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = GetComponent<SpriteRenderer> ();
+        ballRenderer = GetComponent<SpriteRenderer> ();
         projectileRenderer = GetComponent<SpriteRenderer>();
     }
 	

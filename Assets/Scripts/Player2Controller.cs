@@ -9,13 +9,12 @@ public class Player2Controller : MonoBehaviour {
     public Rigidbody2D rb = new Rigidbody2D();
     public Projectile projectile;
     public string color;
-    [SerializeField]
-    private float speed;
-
+    [SerializeField] private float speed;
     public SpriteRenderer ballRenderer;
+    public const int _maxAmmo = 5;
+
+    public int _ammo = _maxAmmo;    //public for testing
     private SpriteRenderer projectileRenderer;
-    private const int _maxAmmo = 5;
-    public int _ammo = _maxAmmo;    //is public for testing
     [SerializeField]
     private bool _runOnce = true;
     [SerializeField]
@@ -38,12 +37,14 @@ public class Player2Controller : MonoBehaviour {
 	public void SpriteToBlue () {
 		ballRenderer.sprite = sprites[0];
         projectileRenderer.sprite = sprites[0];
+        color = "blue";
         ToGame ();
 	}
 
 	public void SpriteToPink () {
 		ballRenderer.sprite = sprites[1];
         projectileRenderer.sprite = sprites[1];
+        color = "pink";
         ToGame ();
 	}
 
@@ -51,12 +52,14 @@ public class Player2Controller : MonoBehaviour {
     {
         projectileRenderer.sprite = sprites[2];
         ballRenderer.sprite = sprites[2];
+        color = "red";
         ToGame ();
 	}
 
 	public void SpriteToGreen () {
 		ballRenderer.sprite = sprites[3];
         projectileRenderer.sprite = sprites[3];
+        color = "green";
         ToGame ();
 	}
 
@@ -77,6 +80,7 @@ public class Player2Controller : MonoBehaviour {
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = -30f;
             projectileClone.ProjectileSprite = projectileRenderer;
+            ViewInGame.instance.Fired(2, _ammo);
             _ammo--;
         }
     }
@@ -119,6 +123,7 @@ public class Player2Controller : MonoBehaviour {
         while (_ammo < _maxAmmo)
         {
             yield return new WaitForSeconds(1f);
+            ViewInGame.instance.Reload(2, _ammo);
             _ammo++;
         }
         _canFire = true;
