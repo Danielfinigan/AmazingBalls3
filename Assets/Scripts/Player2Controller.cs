@@ -13,6 +13,8 @@ public class Player2Controller : MonoBehaviour {
     public SpriteRenderer ballRenderer;
     public const int _maxAmmo = 5;
 
+	public int health;
+
     public int _ammo = _maxAmmo;    //public for testing
     private SpriteRenderer projectileRenderer;
     [SerializeField]
@@ -94,7 +96,14 @@ public class Player2Controller : MonoBehaviour {
     {
         ballRenderer = GetComponent<SpriteRenderer>();
         projectileRenderer = GetComponent<SpriteRenderer>();
+		this.health = 5;
     }
+
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.gameObject.tag == "proj1") {
+			this.health = this.health - 1;
+		}
+	}
 
     // Update is called once per frame
     void Update()
@@ -118,6 +127,9 @@ public class Player2Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
+		if (this.health == 0) {
+			Destroy (this.gameObject);
+		}
     }
 
     //Reloads projectiles when a button is pressed
