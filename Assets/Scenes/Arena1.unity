@@ -643,7 +643,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 156192821}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 5}
+  m_LocalPosition: {x: 10, y: 0, z: 4}
   m_LocalScale: {x: 0.35, y: 1.16, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -695,6 +695,7 @@ GameObject:
   - 124: {fileID: 192004692}
   - 81: {fileID: 192004691}
   - 114: {fileID: 192004696}
+  - 82: {fileID: 192004697}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -785,6 +786,80 @@ MonoBehaviour:
   shakeDuration: 0
   shakeAmount: 0.3
   decreaseFactor: 1
+--- !u!82 &192004697
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 192004690}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c24ce9ea5f72deb4c96906d2abf8cf34, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &202553964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,10 +1685,10 @@ RectTransform:
   - {fileID: 674125639}
   m_Father: {fileID: 222285532}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -510, y: 0}
-  m_SizeDelta: {x: -1040, y: -140}
+  m_AnchorMin: {x: 0, y: 0.1987933}
+  m_AnchorMax: {x: 0.112, y: 0.80437994}
+  m_AnchoredPosition: {x: 51, y: -0.5}
+  m_SizeDelta: {x: -172, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &528292851
 MonoBehaviour:
@@ -3410,10 +3485,10 @@ RectTransform:
   - {fileID: 1110216662}
   m_Father: {fileID: 222285532}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 510, y: 0}
-  m_SizeDelta: {x: -1040, y: -140}
+  m_AnchorMin: {x: 0.89379555, y: 0.1987933}
+  m_AnchorMax: {x: 1, y: 0.80437994}
+  m_AnchoredPosition: {x: -50, y: -0.5}
+  m_SizeDelta: {x: -162, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &988277880
 MonoBehaviour:
@@ -3797,7 +3872,7 @@ MonoBehaviour:
   projectile: {fileID: 114000012428476340, guid: 66c4efca472414f4e9b428a239e6c023,
     type: 2}
   color: 
-  speed: 50
+  speed: 100
   ballRenderer: {fileID: 0}
   _ammo: 5
   _runOnce: 1
@@ -4825,7 +4900,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450327380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 5}
+  m_LocalPosition: {x: -10, y: 0, z: 4}
   m_LocalScale: {x: 0.35, y: 1.16, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
