@@ -43,8 +43,10 @@ public class Projectile : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
-            Destroy(this.gameObject);
+		if (other.gameObject.tag == "Player") {
+			CameraShake.Instance.Shake ();
+			Destroy (this.gameObject);
+		}
     }
     // Update is called once per frame
     void Update ()

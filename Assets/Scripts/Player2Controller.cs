@@ -27,7 +27,7 @@ public class Player2Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 50f;
+			speed = 100f;
 	}
 
 	public void ToGame () {
@@ -83,6 +83,7 @@ public class Player2Controller : MonoBehaviour {
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x - 1f, Instance.transform.position.y);
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = -30f;
+			CameraShake.Instance.Shake ();
             ViewInGame.instance.Fired(2, _ammo);
             _ammo--;
         }
