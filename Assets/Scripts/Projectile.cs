@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour {
 
     private float speed;
     private SpriteRenderer projectileSprite;
+    private IEnumerator lifeSpan;
     public float Speed
         {
            get
@@ -34,11 +35,13 @@ public class Projectile : MonoBehaviour {
     void Awake()
     {
         GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        lifeSpan = LifeSpan();
     }
 
     void Start()
     {
         projectileSprite = GetComponent<SpriteRenderer>();
+        StartCoroutine(lifeSpan);
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -52,5 +55,11 @@ public class Projectile : MonoBehaviour {
     void Update ()
     {
 
+    }
+
+    public IEnumerator LifeSpan()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(this.gameObject);
     }
 }
