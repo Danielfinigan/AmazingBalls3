@@ -76,6 +76,8 @@ public class Player2Controller : MonoBehaviour {
     {
         if (col.gameObject.tag == "Projectile")
         {
+            AudioSource playerHit = GetComponent<AudioSource>();
+            playerHit.Play();
             this.health = this.health - 1;
             healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
         }

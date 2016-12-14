@@ -89,6 +89,9 @@ public class ViewInGame : MonoBehaviour {
         {
             remainingAmmo2[ammoNumber].enabled = true;
         }
+
+        AudioSource reloadSound = GetComponent<AudioSource>();
+        reloadSound.Play();
     }
 
     public void Fired(int player, int projectileNumber)

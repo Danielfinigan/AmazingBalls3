@@ -74,8 +74,11 @@ public class Player1Controller : MonoBehaviour {
     //Upon Projectile Collision, take down player Health and destroy projectile
 	void OnCollisionEnter2D (Collision2D col)
     {
+
 		if(col.gameObject.tag == "Projectile")
         {
+            AudioSource playerHit = GetComponent<AudioSource>();
+            playerHit.Play();
 			this.health = this.health - 1;
 			healthbar1.fillAmount = healthbar1.fillAmount - 0.2f;
 		}
@@ -154,17 +157,4 @@ public class Player1Controller : MonoBehaviour {
         }
         _canFire = true;
     }
-    //Reloads a projectile once a second
-   /* public IEnumerator Reload()
-    {
-        //waits 2 seconds since the last projectile fired before reloading begins
-        yield return new WaitForSeconds(2f);
-        while(_ammo < _maxAmmo)
-        {
-            yield return new WaitForSeconds(1f);
-            _ammo++;
-        }
-        _doneReloading = true;
-        _canFire = true;
-    }*/
 }
