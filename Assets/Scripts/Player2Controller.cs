@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Image=UnityEngine.UI.Image;
 
 public class Player2Controller : MonoBehaviour {
 
@@ -12,6 +13,9 @@ public class Player2Controller : MonoBehaviour {
     [SerializeField] private float speed;
     public SpriteRenderer ballRenderer;
     public const int _maxAmmo = 5;
+
+	public int health;
+	Image healthbar2;
 
     public int _ammo = _maxAmmo;    //public for testing
     private SpriteRenderer projectileRenderer;
@@ -27,7 +31,7 @@ public class Player2Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 50f;
+			speed = 100f;
 	}
 
 	public void ToGame () {
@@ -83,6 +87,7 @@ public class Player2Controller : MonoBehaviour {
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x - 1f, Instance.transform.position.y);
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = -30f;
+			CameraShake.Instance.Shake ();
             ViewInGame.instance.Fired(2, _ammo);
             _ammo--;
         }
@@ -93,7 +98,16 @@ public class Player2Controller : MonoBehaviour {
     {
         ballRenderer = GetComponent<SpriteRenderer>();
         projectileRenderer = GetComponent<SpriteRenderer>();
+		this.health = 5;
+		healthbar2 = GameObject.Find ("UI").transform.FindChild ("InGameScreenPanel").FindChild ("Player2Ammo").FindChild("Healthbar2").GetComponent<Image> ();
     }
+
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.gameObject.tag == "proj1") {
+			this.health = this.health - 1;
+			healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
+		}
+	}
 
     // Update is called once per frame
     void Update()
@@ -117,6 +131,9 @@ public class Player2Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
+		if (this.health == 0) {
+			Destroy (this.gameObject);
+		}
     }
 
     //Reloads projectiles when a button is pressed

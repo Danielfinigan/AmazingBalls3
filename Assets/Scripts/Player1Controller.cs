@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Image=UnityEngine.UI.Image;
 
 public class Player1Controller : MonoBehaviour {
 
@@ -12,6 +13,9 @@ public class Player1Controller : MonoBehaviour {
     [SerializeField] private float speed = 0f;
     public SpriteRenderer ballRenderer;
     public const int _maxAmmo = 5;
+
+	public int health;
+	Image healthbar1;
 
     public int _ammo = _maxAmmo;    //is public for testing
     private SpriteRenderer projectileRenderer;
@@ -28,7 +32,7 @@ public class Player1Controller : MonoBehaviour {
 
 	public void StartGame () {
 		if (GameManager.Instance.currentGameState == GameState.inGame)
-			speed = 50f;
+			speed = 100f;
 	}
 
 	public void ToPlayer2Select () {
@@ -68,7 +72,12 @@ public class Player1Controller : MonoBehaviour {
 	}
 
     //Upon Projectile Collision, take down player Health and destroy projectile
-
+	void OnCollisionEnter2D (Collision2D col) {
+		if(col.gameObject.tag == "proj2") {
+			this.health = this.health - 1;
+			healthbar1.fillAmount = healthbar1.fillAmount - 0.2f;
+		}
+	}
 
 	void FixedUpdate () {
 
@@ -87,6 +96,7 @@ public class Player1Controller : MonoBehaviour {
             Vector2 spawnPosition = new Vector2(Instance.transform.position.x + 1f, Instance.transform.position.y);
             projectileClone = (Projectile)Instantiate(projectile, spawnPosition, Quaternion.identity);
             projectileClone.Speed = 30f;
+			CameraShake.Instance.Shake ();
             ViewInGame.instance.Fired(1, _ammo);
             _ammo--;
         }      
@@ -96,6 +106,8 @@ public class Player1Controller : MonoBehaviour {
 	void Start () {
         ballRenderer = GetComponent<SpriteRenderer> ();
         projectileRenderer = GetComponent<SpriteRenderer>();
+		this.health = 5;
+		healthbar1 = GameObject.Find ("UI").transform.FindChild ("InGameScreenPanel").FindChild ("Player1Ammo").FindChild("Healthbar1").GetComponent<Image> ();
     }
 	
 	// Update is called once per frame
@@ -120,6 +132,9 @@ public class Player1Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
+		if (this.health == 0) {
+			Destroy(this.gameObject);
+		}
 	}
     
     //Reloads projectiles when a button is pressed
