@@ -72,12 +72,20 @@ public class Player1Controller : MonoBehaviour {
 	}
 
     //Upon Projectile Collision, take down player Health and destroy projectile
-	void OnCollisionEnter2D (Collision2D col) {
-		if(col.gameObject.tag == "proj2") {
+	void OnCollisionEnter2D (Collision2D col)
+    {
+		if(col.gameObject.tag == "Projectile")
+        {
 			this.health = this.health - 1;
 			healthbar1.fillAmount = healthbar1.fillAmount - 0.2f;
 		}
-	}
+
+        if (this.health == 0)
+        {
+            Destroy(this.gameObject);
+            GameManager.Instance.YouWin();
+        }
+    }
 
 	void FixedUpdate () {
 
@@ -132,9 +140,6 @@ public class Player1Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
-		if (this.health == 0) {
-			Destroy(this.gameObject);
-		}
 	}
     
     //Reloads projectiles when a button is pressed

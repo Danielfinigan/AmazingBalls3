@@ -69,9 +69,25 @@ public class Player2Controller : MonoBehaviour {
         projectile.ProjectileSprite = projectileRenderer;
         color = "green";
         ToGame ();
-	}
+    }
 
-	void FixedUpdate () {
+    //Upon Projectile Collision, take down player Health and destroy projectile
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Projectile")
+        {
+            this.health = this.health - 1;
+            healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
+        }
+
+        if (this.health == 0)
+        {
+            Destroy(this.gameObject);
+            GameManager.Instance.YouWin();
+        }
+    }
+
+    void FixedUpdate () {
 		if (Input.GetKey (KeyCode.UpArrow))
 			rb.AddForce (transform.up * speed);
 		if (Input.GetKey (KeyCode.DownArrow))
@@ -102,13 +118,6 @@ public class Player2Controller : MonoBehaviour {
 		healthbar2 = GameObject.Find ("UI").transform.FindChild ("InGameScreenPanel").FindChild ("Player2Ammo").FindChild("Healthbar2").GetComponent<Image> ();
     }
 
-	void OnCollisionEnter2D (Collision2D col) {
-		if (col.gameObject.tag == "proj1") {
-			this.health = this.health - 1;
-			healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
-		}
-	}
-
     // Update is called once per frame
     void Update()
     {
@@ -131,9 +140,6 @@ public class Player2Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
-		if (this.health == 0) {
-			Destroy (this.gameObject);
-		}
     }
 
     //Reloads projectiles when a button is pressed
