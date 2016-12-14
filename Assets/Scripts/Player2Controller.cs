@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Image=UnityEngine.UI.Image;
 
 public class Player2Controller : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class Player2Controller : MonoBehaviour {
     public const int _maxAmmo = 5;
 
 	public int health;
+	Image healthbar2;
 
     public int _ammo = _maxAmmo;    //public for testing
     private SpriteRenderer projectileRenderer;
@@ -97,11 +99,13 @@ public class Player2Controller : MonoBehaviour {
         ballRenderer = GetComponent<SpriteRenderer>();
         projectileRenderer = GetComponent<SpriteRenderer>();
 		this.health = 5;
+		healthbar2 = GameObject.Find ("UI").transform.FindChild ("InGameScreenPanel").FindChild ("Player2Ammo").FindChild("Healthbar2").GetComponent<Image> ();
     }
 
 	void OnCollisionEnter2D (Collision2D col) {
 		if (col.gameObject.tag == "proj1") {
 			this.health = this.health - 1;
+			healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
 		}
 	}
 
