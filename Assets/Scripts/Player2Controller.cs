@@ -82,11 +82,12 @@ public class Player2Controller : MonoBehaviour {
             healthbar2.fillAmount = healthbar2.fillAmount - 0.2f;
         }
 
-        if (this.health == 0)
+        /*if (this.health == 0)
         {
             Destroy(this.gameObject);
-            GameManager.Instance.YouWin();
-        }
+			GameManager.Instance.NextLevel();
+			Debug.Log ("health reached zero");
+        }*/
     }
 
     void FixedUpdate () {
@@ -142,6 +143,14 @@ public class Player2Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
+
+////////////////////////////////////////////////////////////////////////////
+		if (this.health == 0)
+		{
+			Destroy(this.gameObject);
+			GameManager.Instance.NextLevel();
+			Debug.Log ("health reached zero");
+		}
     }
 
     //Reloads projectiles when a button is pressed
