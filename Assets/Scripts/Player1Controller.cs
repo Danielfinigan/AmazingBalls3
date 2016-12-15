@@ -85,7 +85,6 @@ public class Player1Controller : MonoBehaviour {
     }
 
 	void FixedUpdate () {
-		Debug.Log ("Fixupdate is running");
             if (Input.GetKey(KeyCode.W))
                 rb.AddForce(transform.up * speed);
             if (Input.GetKey(KeyCode.S))
