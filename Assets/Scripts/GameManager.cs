@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public enum GameState {
 	start,
+    levelSelect,
+    howToPlay,
 	lore,
 	player1select,
 	player2select,
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour {
 	public GameState currentGameState = GameState.start;
 
 	public GameObject StartScreen;
+    public GameObject LevelSelect;
+    public GameObject HowToPlay;
 	public GameObject LoreScreen;
 	public GameObject SelectScreen1;
 	public GameObject SelectScreen2;
@@ -41,6 +45,14 @@ public class GameManager : MonoBehaviour {
 		SetGameState (GameState.inGame);
 		Player1Controller.Instance.StartGame ();
 	}
+
+    public void LevelPick () {
+        SetGameState(GameState.levelSelect);
+    }
+    public void HowToPlayScreen()
+    {
+        SetGameState(GameState.howToPlay);
+    }
 
 	public void Lore () {
 		SetGameState (GameState.lore);
@@ -74,13 +86,27 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void RestartGame ()
+    public void Level1 ()
+    {
+        SceneManager.LoadScene("Arena1");
+    }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("Arena2");
+    }
+
+    public void Level3()
+    {
+        SceneManager.LoadScene("Arena3");
+    }
+
+    public void RestartGame ()
 	{
-		SceneManager.LoadScene("Arena1");
+		SceneManager.LoadScene("LevelSelect");
 	}
 
 	public void LoadNextLevel () {
-		Debug.Log ("loadnextlevel called");
 		if (Application.loadedLevelName == "Arena1") {
 			SceneManager.LoadScene ("Arena2");
 		} else if (Application.loadedLevelName == "Arena2") {
@@ -98,97 +124,141 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void SetGameState (GameState newGameState) {
-		if (newGameState == GameState.start) {
-			StartScreen.SetActive(true);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} if (newGameState == GameState.lore) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (true);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive (false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive (false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.player1select) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (true);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.player2select) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (true);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.inGame) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(true);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.levelComplete) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (true);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.nextLevel) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (true);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.gameOver) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(true);
-			YouWinScreen.SetActive (false);
-		} else if (newGameState == GameState.youWin) {
-			StartScreen.SetActive (false);
-			LoreScreen.SetActive (false);
-			SelectScreen1.SetActive (false);
-			SelectScreen2.SetActive (false);
-			InGameScreen.SetActive(false);
-			LevelCompleteScreen.SetActive (false);
-			NextLevelScreen.SetActive (false);
-			GameOverScreen.SetActive(false);
-			YouWinScreen.SetActive (true);
-		}
+        if (newGameState == GameState.start)
+        {
+            StartScreen.SetActive(true);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.levelSelect)
+        {
+            StartScreen.SetActive(false);
+            LevelSelect.SetActive(true);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.howToPlay)
+        {
+            StartScreen.SetActive(false);
+            LevelSelect.SetActive(false);
+            HowToPlay.SetActive(true);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.lore)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(true);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.player1select)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(true);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.player2select)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(true);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.inGame)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(true);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.levelComplete)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(true);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.nextLevel)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(true);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.gameOver)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(true);
+            YouWinScreen.SetActive(false);
+        }
+        else if (newGameState == GameState.youWin)
+        {
+            StartScreen.SetActive(false);
+            LoreScreen.SetActive(false);
+            SelectScreen1.SetActive(false);
+            SelectScreen2.SetActive(false);
+            InGameScreen.SetActive(false);
+            LevelCompleteScreen.SetActive(false);
+            NextLevelScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
+            YouWinScreen.SetActive(true);
+        }
 		currentGameState = newGameState;
 	}
 
