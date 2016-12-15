@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject NextLevelScreen;
 	public GameObject YouWinScreen;
 
+    public string playerWon = "";
+
 	public void Awake () {
 		Instance = this;
 	}

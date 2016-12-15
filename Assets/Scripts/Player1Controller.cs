@@ -141,8 +141,8 @@ public class Player1Controller : MonoBehaviour {
 		if (this.health == 0)
 		{
 			Destroy(this.gameObject);
+            GameManager.Instance.playerWon = "Player 2 has won!";
 			GameManager.Instance.NextLevel();
-			Debug.Log ("health reached zero");
 		}
 	}
     
@@ -152,7 +152,7 @@ public class Player1Controller : MonoBehaviour {
         _canFire = false;
         while (_ammo < _maxAmmo)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
             ViewInGame.instance.Reload(1, _ammo);
             _ammo++;
         }
