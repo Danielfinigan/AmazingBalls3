@@ -82,16 +82,10 @@ public class Player1Controller : MonoBehaviour {
 			this.health = this.health - 1;
 			healthbar1.fillAmount = healthbar1.fillAmount - 0.2f;
 		}
-
-        if (this.health == 0)
-        {
-            Destroy(this.gameObject);
-            GameManager.Instance.YouWin();
-        }
     }
 
 	void FixedUpdate () {
-
+		Debug.Log ("Fixupdate is running");
             if (Input.GetKey(KeyCode.W))
                 rb.AddForce(transform.up * speed);
             if (Input.GetKey(KeyCode.S))
@@ -143,6 +137,13 @@ public class Player1Controller : MonoBehaviour {
             StartCoroutine(_reload);
             _runOnce = false;
         }
+///////////////////////////////////////////////////////////////////////////////
+		if (this.health == 0)
+		{
+			Destroy(this.gameObject);
+			GameManager.Instance.NextLevel();
+			Debug.Log ("health reached zero");
+		}
 	}
     
     //Reloads projectiles when a button is pressed

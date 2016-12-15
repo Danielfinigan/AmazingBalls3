@@ -11,6 +11,7 @@ public enum GameState {
 	inGame,
 	gameOver,
 	levelComplete,
+	nextLevel,
 	youWin
 }
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject InGameScreen;
 	public GameObject LevelCompleteScreen;
 	public GameObject GameOverScreen;
+	public GameObject NextLevelScreen;
 	public GameObject YouWinScreen;
 
 	public void Awake () {
@@ -56,9 +58,26 @@ public class GameManager : MonoBehaviour {
 		SetGameState (GameState.youWin);
 	}
 
+	public void NextLevel () {
+		if (Application.loadedLevelName == "Arena2") {
+			YouWin ();
+		} else {
+			SetGameState (GameState.nextLevel);
+		}
+	}
+
 	public void RestartGame ()
 	{
 		SceneManager.LoadScene("Arena1");
+	}
+
+	public void LoadNextLevel () {
+		Debug.Log ("loadnextlevel called");
+		if (Application.loadedLevelName == "Arena1") {
+			SceneManager.LoadScene ("Arena2");
+		} else if (Application.loadedLevelName == "Arena2") {
+			SceneManager.LoadScene ("Arena1");
+		}
 	}
 
 	public void RestartLevel()
@@ -77,6 +96,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.player1select) {
@@ -85,6 +105,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.player2select) {
@@ -93,6 +114,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (true);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.inGame) {
@@ -101,6 +123,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(true);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.levelComplete) {
@@ -109,6 +132,16 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (true);
+			NextLevelScreen.SetActive (false);
+			GameOverScreen.SetActive(false);
+			YouWinScreen.SetActive (false);
+		} else if (newGameState == GameState.nextLevel) {
+			StartScreen.SetActive (false);
+			SelectScreen1.SetActive (false);
+			SelectScreen2.SetActive (false);
+			InGameScreen.SetActive(false);
+			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (true);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.gameOver) {
@@ -117,6 +150,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(true);
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.youWin) {
@@ -125,6 +159,7 @@ public class GameManager : MonoBehaviour {
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
 			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (true);
 		}
@@ -136,5 +171,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void Start () {
+		if (Application.loadedLevelName == "Arena2")
+			Player1Select ();
 	}
 }
