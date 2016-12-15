@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NextLevel () {
-		if (Application.loadedLevelName == "Arena2") {
+		if (Application.loadedLevelName == "Arena3") {
 			YouWin ();
 		} else {
 			SetGameState (GameState.nextLevel);
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour {
 		if (Application.loadedLevelName == "Arena1") {
 			SceneManager.LoadScene ("Arena2");
 		} else if (Application.loadedLevelName == "Arena2") {
-			SceneManager.LoadScene ("Arena1");
+			SceneManager.LoadScene ("Arena3");
 		}
 	}
 
@@ -174,7 +174,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
-		if (Application.loadedLevelName == "Arena2")
+		if (Application.loadedLevelName == "Arena2") {
 			Player1Select ();
+		} else if (Application.loadedLevelName == "Arena3") {
+			Player1Select ();
+		}
 	}
 }
