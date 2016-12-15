@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public enum GameState {
 	start,
+	lore,
 	player1select,
 	player2select,
 	inGame,
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	public GameState currentGameState = GameState.start;
 
 	public GameObject StartScreen;
+	public GameObject LoreScreen;
 	public GameObject SelectScreen1;
 	public GameObject SelectScreen2;
 	public GameObject InGameScreen;
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour {
 	public void StartGame () {
 		SetGameState (GameState.inGame);
 		Player1Controller.Instance.StartGame ();
+	}
+
+	public void Lore () {
+		SetGameState (GameState.lore);
 	}
 
 	public void Player1Select() {
@@ -94,6 +100,7 @@ public class GameManager : MonoBehaviour {
 	void SetGameState (GameState newGameState) {
 		if (newGameState == GameState.start) {
 			StartScreen.SetActive(true);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
@@ -101,8 +108,19 @@ public class GameManager : MonoBehaviour {
 			NextLevelScreen.SetActive (false);
 			GameOverScreen.SetActive(false);
 			YouWinScreen.SetActive (false);
+		} if (newGameState == GameState.lore) {
+			StartScreen.SetActive (false);
+			LoreScreen.SetActive (true);
+			SelectScreen1.SetActive (false);
+			SelectScreen2.SetActive (false);
+			InGameScreen.SetActive (false);
+			LevelCompleteScreen.SetActive (false);
+			NextLevelScreen.SetActive (false);
+			GameOverScreen.SetActive (false);
+			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.player1select) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (true);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
@@ -112,6 +130,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.player2select) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (true);
 			InGameScreen.SetActive(false);
@@ -121,6 +140,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.inGame) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(true);
@@ -130,6 +150,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.levelComplete) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
@@ -139,6 +160,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.nextLevel) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
@@ -148,6 +170,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.gameOver) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
@@ -157,6 +180,7 @@ public class GameManager : MonoBehaviour {
 			YouWinScreen.SetActive (false);
 		} else if (newGameState == GameState.youWin) {
 			StartScreen.SetActive (false);
+			LoreScreen.SetActive (false);
 			SelectScreen1.SetActive (false);
 			SelectScreen2.SetActive (false);
 			InGameScreen.SetActive(false);
