@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public enum GameState {
 	start,
-    levelSelect,
-    howToPlay,
 	lore,
 	player1select,
 	player2select,
@@ -24,8 +22,6 @@ public class GameManager : MonoBehaviour {
 	public GameState currentGameState = GameState.start;
 
 	public GameObject StartScreen;
-    public GameObject LevelSelect;
-    public GameObject HowToPlay;
 	public GameObject LoreScreen;
 	public GameObject SelectScreen1;
 	public GameObject SelectScreen2;
@@ -45,14 +41,6 @@ public class GameManager : MonoBehaviour {
 		SetGameState (GameState.inGame);
 		Player1Controller.Instance.StartGame ();
 	}
-
-    public void LevelPick () {
-        SetGameState(GameState.levelSelect);
-    }
-    public void HowToPlayScreen()
-    {
-        SetGameState(GameState.howToPlay);
-    }
 
 	public void Lore () {
 		SetGameState (GameState.lore);
@@ -85,21 +73,6 @@ public class GameManager : MonoBehaviour {
 			SetGameState (GameState.nextLevel);
 		}
 	}
-
-    public void Level1 ()
-    {
-        SceneManager.LoadScene("Arena1");
-    }
-
-    public void Level2()
-    {
-        SceneManager.LoadScene("Arena2");
-    }
-
-    public void Level3()
-    {
-        SceneManager.LoadScene("Arena3");
-    }
 
     public void RestartGame ()
 	{
@@ -136,33 +109,7 @@ public class GameManager : MonoBehaviour {
             GameOverScreen.SetActive(false);
             YouWinScreen.SetActive(false);
         }
-        else if (newGameState == GameState.levelSelect)
-        {
-            StartScreen.SetActive(false);
-            LevelSelect.SetActive(true);
-            LoreScreen.SetActive(false);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
-        else if (newGameState == GameState.howToPlay)
-        {
-            StartScreen.SetActive(false);
-            LevelSelect.SetActive(false);
-            HowToPlay.SetActive(true);
-            LoreScreen.SetActive(false);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
+
         else if (newGameState == GameState.lore)
         {
             StartScreen.SetActive(false);
