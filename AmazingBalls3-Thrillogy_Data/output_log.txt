@@ -20,3 +20,8 @@ Platform assembly: C:\Users\DanFinigan\Desktop\AmazingBalls3-Arena\AmazingBalls3
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.738128 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 3200 -> priority: 1 
+  Thread -> id: 8a4 -> priority: 1 
