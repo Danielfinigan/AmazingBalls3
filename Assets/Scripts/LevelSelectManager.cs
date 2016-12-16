@@ -51,6 +51,11 @@ public class LevelSelectManager : MonoBehaviour {
         SceneManager.LoadScene("Arena3");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void SetLevelState(LevelState newLevelState)
     {
         if (newLevelState == LevelState.startMenu)

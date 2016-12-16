@@ -6,13 +6,9 @@ using UnityEngine.UI;
 
 public enum GameState {
 	start,
-	lore,
 	player1select,
 	player2select,
 	inGame,
-	gameOver,
-	levelComplete,
-	nextLevel,
 	youWin
 }
 
@@ -22,13 +18,9 @@ public class GameManager : MonoBehaviour {
 	public GameState currentGameState = GameState.start;
 
 	public GameObject StartScreen;
-	public GameObject LoreScreen;
 	public GameObject SelectScreen1;
 	public GameObject SelectScreen2;
 	public GameObject InGameScreen;
-	public GameObject LevelCompleteScreen;
-	public GameObject GameOverScreen;
-	public GameObject NextLevelScreen;
 	public GameObject YouWinScreen;
 
     public string playerWon = "";
@@ -42,10 +34,6 @@ public class GameManager : MonoBehaviour {
 		Player1Controller.Instance.StartGame ();
 	}
 
-	public void Lore () {
-		SetGameState (GameState.lore);
-	}
-
 	public void Player1Select() {
 		SetGameState (GameState.player1select);
 	}
@@ -54,37 +42,13 @@ public class GameManager : MonoBehaviour {
 		SetGameState (GameState.player2select);
 	}
 
-	public void LvlComplete () {
-		SetGameState (GameState.levelComplete);
-	}
-
-	public void GameOver () {
-		SetGameState (GameState.gameOver);
-	}
-
 	public void YouWin () {
 		SetGameState (GameState.youWin);
-	}
-
-	public void NextLevel () {
-		if (Application.loadedLevelName == "Arena3") {
-			YouWin ();
-		} else {
-			SetGameState (GameState.nextLevel);
-		}
 	}
 
     public void RestartGame ()
 	{
 		SceneManager.LoadScene("LevelSelect");
-	}
-
-	public void LoadNextLevel () {
-		if (Application.loadedLevelName == "Arena1") {
-			SceneManager.LoadScene ("Arena2");
-		} else if (Application.loadedLevelName == "Arena2") {
-			SceneManager.LoadScene ("Arena3");
-		}
 	}
 
 	public void RestartLevel()
@@ -100,116 +64,46 @@ public class GameManager : MonoBehaviour {
         if (newGameState == GameState.start)
         {
             StartScreen.SetActive(true);
-            LoreScreen.SetActive(false);
             SelectScreen1.SetActive(false);
             SelectScreen2.SetActive(false);
             InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
             YouWinScreen.SetActive(false);
         }
 
-        else if (newGameState == GameState.lore)
-        {
-            StartScreen.SetActive(false);
-            LoreScreen.SetActive(true);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
         else if (newGameState == GameState.player1select)
         {
             StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
             SelectScreen1.SetActive(true);
             SelectScreen2.SetActive(false);
             InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
             YouWinScreen.SetActive(false);
         }
         else if (newGameState == GameState.player2select)
         {
             StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
             SelectScreen1.SetActive(false);
             SelectScreen2.SetActive(true);
             InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
             YouWinScreen.SetActive(false);
         }
         else if (newGameState == GameState.inGame)
         {
             StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
             SelectScreen1.SetActive(false);
             SelectScreen2.SetActive(false);
             InGameScreen.SetActive(true);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
-        else if (newGameState == GameState.levelComplete)
-        {
-            StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(true);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
-        else if (newGameState == GameState.nextLevel)
-        {
-            StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(true);
-            GameOverScreen.SetActive(false);
-            YouWinScreen.SetActive(false);
-        }
-        else if (newGameState == GameState.gameOver)
-        {
-            StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
-            SelectScreen1.SetActive(false);
-            SelectScreen2.SetActive(false);
-            InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(true);
             YouWinScreen.SetActive(false);
         }
         else if (newGameState == GameState.youWin)
         {
             StartScreen.SetActive(false);
-            LoreScreen.SetActive(false);
             SelectScreen1.SetActive(false);
             SelectScreen2.SetActive(false);
             InGameScreen.SetActive(false);
-            LevelCompleteScreen.SetActive(false);
-            NextLevelScreen.SetActive(false);
-            GameOverScreen.SetActive(false);
             YouWinScreen.SetActive(true);
         }
 		currentGameState = newGameState;
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
@@ -217,10 +111,5 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
-		if (Application.loadedLevelName == "Arena2") {
-			Player1Select ();
-		} else if (Application.loadedLevelName == "Arena3") {
-			Player1Select ();
-		}
 	}
 }

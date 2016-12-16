@@ -141,7 +141,7 @@ public class Player1Controller : MonoBehaviour {
 		{
 			Destroy(this.gameObject);
             GameManager.Instance.playerWon = "Player 2 has won!";
-			GameManager.Instance.NextLevel();
+			GameManager.Instance.YouWin();
 		}
 	}
     
